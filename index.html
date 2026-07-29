@@ -1,0 +1,451 @@
+﻿<!DOCTYPE html>
+<html lang="id" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#050711">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="Dear, Rinda — Sebuah hadiah ulang tahun spesial untuk Rinda Asmita. Dibuat dengan cinta dan penuh cerita.">
+    <meta name="author" content="Arwan">
+    <meta property="og:title" content="Dear, Rinda">
+    <meta property="og:description" content="Sebuah hadiah ulang tahun spesial untuk Rinda Asmita.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/images/cover.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dear, Rinda ❤️">
+    <meta name="twitter:description" content="Sebuah hadiah ulang tahun spesial untuk Rinda Asmita.">
+    <meta name="twitter:image" content="assets/images/cover.jpg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>❤️</title>
+
+    <!-- Font Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="assets/music/Golden-Brown.mp3" as="audio" type="audio/mpeg" crossorigin="anonymous">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/favicon-192.png">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--
+    ============================
+    Animated Background Layer
+    ============================
+    -->
+    <div id="page-background" class="page-background" aria-hidden="true"></div>
+
+    <!--
+    ============================
+    Particle Canvas Layer
+    ============================
+    -->
+    <canvas id="particle-canvas" class="particle-canvas" aria-hidden="true"></canvas>
+
+    <!--
+    ============================
+    Main Content
+    ============================
+    -->
+    <main id="main-content" role="main">
+
+        <!-- ============================
+             LANDING SCREEN
+             ============================ -->
+        <section id="screen-landing" class="screen screen--landing" aria-label="Halaman pembuka" role="dialog" aria-modal="true">
+            <div class="screen__background" aria-hidden="true"></div>
+
+            <article class="landing-card glass-card" aria-label="Formulir pembuka hadiah">
+                <header class="landing-card__header">
+                    <p class="landing-card__eyebrow">For You,</p>
+                    <h1 class="landing-card__title">A little surprise awaits.</h1>
+                </header>
+
+                <p class="landing-card__text">Masukkan namamu untuk membuka hadiah ini.</p>
+
+                <form id="form-landing" class="landing-card__form" novalidate autocomplete="off">
+                    <label for="input-visitor-name" class="sr-only">Namamu...</label>
+                    <input
+                        id="input-visitor-name"
+                        name="visitorName"
+                        type="text"
+                        class="input input--rounded"
+                        placeholder="Namamu..."
+                        autocomplete="name"
+                        required
+                        aria-describedby="validation-message"
+                    >
+                    <p id="validation-message" class="validation-message" role="alert" aria-live="polite"></p>
+                    <button type="submit" class="button button--primary">
+                        Buka Hadiah
+                        <span class="button__icon" aria-hidden="true">❤️</span>
+                    </button>
+                </form>
+            </article>
+        </section>
+
+        <!-- ============================
+             LOADING SCREEN
+             ============================ -->
+        <section id="screen-loading" class="screen screen--loading hidden" aria-labelledby="loading-title" aria-hidden="true">
+            <div class="screen__content">
+                <h2 id="loading-title" class="screen__title screen__title--loading">Memuat</h2>
+
+                <div class="loading-crossfade" aria-live="polite">
+                    <p class="loading-message is-active">Menyusun kenangan...</p>
+                    <p class="loading-message">Mengumpulkan foto...</p>
+                    <p class="loading-message">Menghidupkan musik...</p>
+                    <p class="loading-message">Menyiapkan kejutan...</p>
+                </div>
+
+                <div class="loading-ring-container">
+                    <span class="loading-ring" aria-hidden="true"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================
+             EARPHONE SCREEN
+             ============================ -->
+        <section id="screen-earphone" class="screen screen--earphone hidden" aria-labelledby="earphone-title" aria-hidden="true">
+            <div class="screen__content">
+                <div class="earphone-illustration" aria-hidden="true">
+                    <svg class="earphone-illustration__svg" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                        <defs>
+                            <linearGradient id="headbandGlass" x1="80" y1="52" x2="180" y2="190" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FFFFFF" stop-opacity=".26"/>
+                                <stop offset=".44" stop-color="#BFC6CF" stop-opacity=".06"/>
+                                <stop offset="1" stop-color="#FFFFFF" stop-opacity=".16"/>
+                            </linearGradient>
+                            <linearGradient id="cupGlass" x1="59" y1="141" x2="104" y2="204" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FFFFFF" stop-opacity=".22"/>
+                                <stop offset=".5" stop-color="#4A5260" stop-opacity=".3"/>
+                                <stop offset="1" stop-color="#090B10" stop-opacity=".62"/>
+                            </linearGradient>
+                            <linearGradient id="cupGlassRight" x1="156" y1="141" x2="201" y2="204" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FFFFFF" stop-opacity=".22"/>
+                                <stop offset=".5" stop-color="#4A5260" stop-opacity=".3"/>
+                                <stop offset="1" stop-color="#090B10" stop-opacity=".62"/>
+                            </linearGradient>
+                            <radialGradient id="goldGlow" cx="0" cy="0" r="1" gradientTransform="translate(130 181) rotate(90) scale(76)" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#F7C96B" stop-opacity=".72"/>
+                                <stop offset=".48" stop-color="#C7933E" stop-opacity=".18"/>
+                                <stop offset="1" stop-color="#C7933E" stop-opacity="0"/>
+                            </radialGradient>
+                            <filter id="softGlow" x="28" y="24" width="204" height="210" filterUnits="userSpaceOnUse">
+                                <feGaussianBlur stdDeviation="9"/>
+                            </filter>
+                            <filter id="innerShadow" x="43" y="38" width="174" height="180" filterUnits="userSpaceOnUse">
+                                <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+                                <feOffset dy="5"/>
+                                <feComposite in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                                <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0"/>
+                                <feBlend in2="SourceGraphic" mode="screen"/>
+                            </filter>
+                        </defs>
+                        <ellipse cx="130" cy="185" rx="74" ry="20" fill="#E9B555" fill-opacity=".2" filter="url(#softGlow)"/>
+                        <circle cx="130" cy="130" r="112" fill="url(#goldGlow)" opacity=".54"/>
+                        <path d="M67 140V117C67 77.2 94.2 48 130 48C165.8 48 193 77.2 193 117V140" stroke="#FFF" stroke-opacity=".9" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M76 129V116C76 82.6 99.3 59 130 59C160.7 59 184 82.6 184 116V129" stroke="url(#headbandGlass)" stroke-width="11" stroke-linecap="round"/>
+                        <path d="M81 119C85.9 85.9 104.1 68.5 130 68.5C155.9 68.5 174.1 85.9 179 119" stroke="#FFF" stroke-opacity=".14" stroke-width="1.4" stroke-linecap="round"/>
+                        <g filter="url(#innerShadow)">
+                            <rect x="48" y="132" width="52" height="70" rx="25" fill="url(#cupGlass)" stroke="#FFF" stroke-opacity=".9" stroke-width="2.5"/>
+                            <rect x="160" y="132" width="52" height="70" rx="25" fill="url(#cupGlassRight)" stroke="#FFF" stroke-opacity=".9" stroke-width="2.5"/>
+                        </g>
+                        <rect x="57" y="141" width="34" height="51" rx="17" stroke="#FFF" stroke-opacity=".22" stroke-width="1.2"/>
+                        <rect x="169" y="141" width="34" height="51" rx="17" stroke="#FFF" stroke-opacity=".22" stroke-width="1.2"/>
+                        <path d="M63 149C67.5 141.5 76.6 139.1 84 143" stroke="#FFF" stroke-opacity=".4" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M175 149C179.5 141.5 188.6 139.1 196 143" stroke="#FFF" stroke-opacity=".4" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M100 171C109.6 177.7 119.6 181 130 181C140.4 181 150.4 177.7 160 171" stroke="#F8CF7C" stroke-opacity=".78" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="130" cy="181" r="2.5" fill="#F9D689"/>
+                    </svg>
+                </div>
+
+                <div class="earphone-copy">
+                    <h2 id="earphone-title" class="screen__title screen__title--earphone">Kalau ada earphone,</h2>
+                    <p class="screen__text">pakai dulu ya. Biar hadiahnya lebih terasa.</p>
+                    <button type="button" id="button-earphone-confirm" class="button button--primary">
+                        Aku Siap
+                        <span class="button__icon" aria-hidden="true">❤️</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================
+             INTRO SCREEN
+             ============================ -->
+        <section id="screen-intro" class="screen screen--intro hidden" aria-labelledby="intro-title" aria-hidden="true">
+            <div class="intro-glow" aria-hidden="true"></div>
+
+            <div class="screen__content">
+                <h2 id="intro-title" class="screen__title screen__title--intro">Hai, Rinda.</h2>
+
+                <div class="intro-copy" role="document" aria-label="Pesan intro">
+
+                    <!-- Intro sentences (preserved exactly) -->
+                    <p class="intro-sentence" data-index="0" data-text="Selamat ulang tahun.">Selamat ulang tahun.</p>
+                    <p class="intro-sentence" data-index="1" data-text="Aku sempat bingung...">Aku sempat bingung...</p>
+                    <p class="intro-sentence" data-index="2" data-text="mau kasih hadiah apa.">mau kasih hadiah apa.</p>
+                    <p class="intro-sentence" data-index="3" data-text="Sampai akhirnya aku sadar.">Sampai akhirnya aku sadar.</p>
+                    <p class="intro-sentence" data-index="4" data-text="Hadiah terbaik...">Hadiah terbaik...</p>
+                    <p class="intro-sentence" data-index="5" data-text="adalah sesuatu">adalah sesuatu</p>
+                    <p class="intro-sentence" data-index="6" data-text="yang kubuat sendiri.">yang kubuat sendiri.</p>
+
+                    <!-- Helper hint -->
+                    <div class="intro-helper" aria-hidden="true">
+                        <span class="intro-helper__text">Klik di mana saja untuk lanjut</span>
+                        <span class="intro-helper__arrow" aria-hidden="true">↓</span>
+                    </div>
+
+                    <!-- Heart reveal -->
+                    <p class="intro-heart" aria-hidden="true">❤️</p>
+
+                    <!-- Continue button (appended by JS) -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================
+             BIRTHDAY SCREEN
+             ============================ -->
+        <section id="screen-birthday" class="screen screen--birthday hidden" aria-labelledby="birthday-title" aria-hidden="true">
+            <div class="screen__content">
+
+                <!-- Ambient background effects -->
+                <div class="birthday-effects" aria-hidden="true">
+                    <div class="birthday-ambient-bg"></div>
+                </div>
+
+                <header class="birthday-header">
+                    <div class="birthday-heart-icon" aria-hidden="true">❤️</div>
+                    <h2 id="birthday-title" class="screen__title screen__title--birthday">Happy Birthday</h2>
+                    <p class="birthday-subtitle">Rinda Asmita</p>
+                </header>
+
+                <p class="birthday-message">
+                    Semoga hari ini dan setiap hari
+                    <br>
+                    selalu dipenuhi kebahagiaan.
+                </p>
+
+                <footer class="birthday-footer">
+                    <p class="birthday-date">27 July 2026</p>
+                    <p class="birthday-credit">Made with ❤️ by Arwan</p>
+                    <button id="button-birthday-next" type="button" class="button button--primary birthday-button">
+                        Open Your Gift
+                        <span class="button__icon" aria-hidden="true">🎁</span>
+                    </button>
+                </footer>
+
+            </div>
+        </section>
+
+        <!-- ============================
+             GALLERY SCREEN
+             ============================ -->
+        <section id="screen-gallery" class="screen screen--gallery hidden" aria-labelledby="gallery-title" aria-hidden="true">
+            <div class="screen__content">
+
+                <header class="gallery-header">
+                    <h2 id="gallery-title" class="screen__title screen__title--gallery">Memories</h2>
+                </header>
+
+                <div class="gallery-viewer" role="region" aria-label="Galeri foto">
+
+                    <!-- Frame+Controls wrapper for proper overlay positioning -->
+                    <div class="gallery-viewer__stage">
+
+                        <!-- Image frame -->
+                        <div class="gallery-viewer__frame" id="gallery-frame">
+                            <img
+                                id="gallery-image"
+                                class="gallery-viewer__image"
+                                src=""
+                                alt=""
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </div>
+
+                        <!-- Controls overlay (sits exactly over frame) -->
+                        <nav class="gallery-viewer__controls" aria-label="Navigasi galeri">
+
+                            <!-- Previous button -->
+                            <button
+                                id="gallery-prev"
+                                class="gallery-viewer__nav gallery-viewer__nav--prev"
+                                type="button"
+                                aria-label="Sebelumnya"
+                            >
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M15 18l-6-6 6-6"/>
+                                </svg>
+                            </button>
+
+                            <!-- Progress dots -->
+                            <div id="gallery-progress-dots" class="gallery-progress-dots" role="tablist" aria-label="Indikator halaman"></div>
+
+                            <!-- Next button -->
+                            <button
+                                id="gallery-next"
+                                class="gallery-viewer__nav gallery-viewer__nav--next"
+                                type="button"
+                                aria-label="Berikutnya"
+                            >
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                            </button>
+
+                        </nav>
+
+                    </div>
+
+                    <!-- Caption -->
+                    <p id="gallery-caption" class="gallery-viewer__caption"></p>
+
+                    <!-- Finish button -->
+                    <button
+                        id="gallery-finish"
+                        class="button button--primary gallery-viewer__finish"
+                        type="button"
+                        aria-label="Selesai melihat galeri"
+                    >
+                        Selesai
+                        <span class="button__icon" aria-hidden="true">❤️</span>
+                    </button>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================
+             ENDING SCREEN
+             ============================ -->
+        <section id="screen-ending" class="screen screen--ending hidden" aria-labelledby="ending-title" aria-hidden="true">
+            <div class="screen__content">
+
+                <div class="ending-paragraphs" role="document" aria-label="Pesan penutup">
+
+                    <!-- Single active paragraph element used by JS for sequential reveal -->
+                    <p id="ending-active" class="ending-paragraph" aria-live="polite"></p>
+
+                    <!-- Hidden source data preserved for compatibility -->
+                    <p class="ending-paragraph ending-source" data-delay="0" data-text="❤️" hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="1" data-text="Untukmu, Rinda." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="2" data-text="Kalau kamu sudah sampai di halaman ini..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="3" data-text="berarti kamu sudah melihat semua yang ingin aku tunjukkan." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="4" data-text="Mungkin ini bukan hadiah paling mahal." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="5" data-text="Mungkin juga bukan hadiah paling mewah." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="6" data-text="Tapi aku berani bilang..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="7" data-text="ini adalah hadiah yang paling banyak menghabiskan waktu, pikiran, dan perasaanku." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="8" data-text="Karena sejak awal..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="9" data-text="website ini memang dibuat hanya untuk satu orang." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="10" data-text="Dan orang itu adalah..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="11" data-text="kamu." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="12" data-text="Terima kasih..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="13" data-text="karena sudah hadir di hidupku." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="14" data-text="Terima kasih..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="15" data-text="karena sudah menjadi bagian dari setiap cerita yang kita lalui bersama." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="16" data-text="Di umurmu yang baru," hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="17" data-text="aku berharap..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="18" data-text="kamu selalu dikelilingi orang-orang baik." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="19" data-text="Semoga semua impian yang sedang kamu perjuangkan," hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="20" data-text="pelan-pelan menjadi kenyataan." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="21" data-text="Semoga setiap langkahmu selalu dipenuhi kebahagiaan." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="22" data-text="Dan kalau suatu hari nanti..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="23" data-text="kamu membuka website ini lagi," hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="24" data-text="aku ingin kamu mengingat satu hal." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="25" data-text="Pernah ada seseorang..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="26" data-text="yang membuat semua ini," hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="27" data-text="bukan karena dia harus." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="28" data-text="Tetapi..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="29" data-text="karena dia benar-benar menyayangimu." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="30" data-text="Selamat ulang tahun,<br>Rinda Asmita." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="31" data-text="Semoga senyummu selalu menjadi alasan hari-hari terasa lebih indah." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="32" data-text="Dan semoga..." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="33" data-text="apa pun yang terjadi nanti," hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="34" data-text="kamu selalu tahu," hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="35" data-text="kalau akan selalu ada seseorang yang mendoakanmu dengan tulus." hidden></p>
+                    <p class="ending-paragraph ending-source" data-delay="36" data-text="Aku sayang kamu. ❤️" hidden></p>
+                    <p class="ending-paragraph ending-source ending-paragraph--signature ending-paragraph--glow" data-delay="37" data-text="&mdash; Arwan ❤️" hidden></p>
+
+                </div>
+            </div>
+        </section>
+        <!-- ==========================================================
+     SECRET LOVE MODAL
+=========================================================== -->
+<div
+    id="secret-modal"
+    class="secret-modal"
+    aria-hidden="true">
+
+    <div
+        class="secret-modal__overlay">
+    </div>
+
+    <div
+        class="secret-modal__card glass-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="secret-title">
+
+        <button
+            id="secret-close"
+            class="secret-modal__close"
+            type="button"
+            aria-label="Tutup">
+
+            ✕
+
+        </button>
+
+        <div class="secret-modal__heart">❤️</div>
+
+    <h2 class="secret-modal__title">
+           Ku Sayang Ki,<br>
+           Rindaaa ❤️
+</h2>
+
+<p class="secret-modal__subtitle">
+    kalau memang masih sayang...
+    Pencet Tombol Dibawah
+</p>
+
+<button
+    id="secret-love-button"
+    class="secret-button"
+    type="button">
+
+    <span class="secret-button__text">
+        ❤️
+    </span>
+
+</button>
+
+    </div>
+
+</div>
+
+    </main>
+
+    <!-- Script (module for encapsulation) -->
+    <script src="script.js" defer></script>
+</body>
+</html>
+
